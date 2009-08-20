@@ -1,0 +1,182 @@
+/* @override http://www.hateonyourjob.com/media/css/hate.css */
+#logo{
+	margin-left: -1em;
+}
+a{
+	color: red;
+	text-decoration: none;
+}
+a:hover{
+	color: #990002;
+}
+
+.block{
+	border: 1px solid #dedede;
+	margin-bottom: 1em;
+	padding: 1em;
+	background-color: #f2f2f2;
+}
+.block h3{
+	border-bottom: 1px solid #aaa;
+	padding-bottom: .5em;
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: bold;
+	color: #aaa;
+	margin: 0 0 4px;
+}
+
+#primary-navigation ul,
+.post .menu ul{
+	padding: 0;
+	margin: 0 0 1px;
+}
+#primary-navigation li,
+.post .menu li{
+	list-style:none;
+	display: block;
+	float: left;
+}
+#sig{
+	background: black;
+	text-align: center;
+	color: #fff;
+	padding: 10px 0;
+}
+#sig p{
+	margin: 0;
+}
+
+#sig img {
+	vertical-align: middle;
+}
+
+#what-is-this h3 {
+	height: 58px;font-size: 0;
+	color: white;
+	margin-left: -21px;
+	display: block;
+	margin-bottom: 0;
+	overflow: hidden;
+}
+
+.post h2,
+.post h3, 
+.post h4{
+	font-size: 22px;
+	margin: 0;
+	float: left;
+	clear: left;
+	
+}
+.post h4 a{
+	color: #b50003;
+}
+span.created {
+	display: block;
+	float: right;
+	color: #7d7d7d;
+}
+
+.post .entry {
+	clear: both;
+	font: italic 22px Georgia, "Times New Roman", Times, serif;
+	margin: 3em 1em 2em;
+}
+
+
+#what-is-this p {
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+	text-align: center;
+	padding: 0 11px 11px;
+}
+
+.post .entry .left.quote {
+
+	color: #ccc;
+
+}
+
+.post .entry .right.quote {
+	color: #ccc;
+}
+
+#header{
+	border-bottom: 2px solid #cb0000;
+	margin-bottom: 20px;
+        height: 148px;
+}
+#header h1{
+	margin-bottom: 0;
+	
+}
+#header h2 {
+	font: italic 1.5em Georgia, "Times New Roman", Times, serif;
+	color: #999;
+	margin: -1px;
+}
+
+div.post {
+	border-bottom: 1px solid #dedede;
+	margin-bottom: 1em;
+	padding: 1em;
+}
+body{
+	background: url(/media/images/background.jpg);
+}
+.container{
+	background: #fff;
+	padding: 10px;
+}
+.post .menu a{
+	background: #ccc;
+	color: #000;
+	text-decoration: none;
+	padding: 4px;
+	margin: 2px;
+	font-weight: bold;
+	font-size: 11px;
+	text-transform: uppercase;
+	border: 2px solid #b3b3b3;
+}
+#search-block{
+	margin-bottom: 8em;
+	text-align: right;
+	color: gray;
+}
+
+
+#search-block form label {
+	font-weight: normal;
+	font-style: normal;
+}
+#primary-navigation{
+	float: right;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+#primary-navigation  a{
+	background: #f00;
+	color: #fff;
+	text-decoration: none;
+	padding: 2px 5px;
+	margin: 1px 1px 0;
+	font-weight: bold;
+	font-size: 14px;
+	text-transform: uppercase;
+	border: 2px solid #cb0000;
+	display: block;
+	float: left;
+	border-bottom:none;
+}
+#primary-navigation  a:hover{
+	background-color: #ae0000;
+}
+.post .menu{
+	margin-bottom: 1em;
+	margin-top: 1em;
+	height: 2em;
+	margin-left: 0;
+	padding: 0;
+}

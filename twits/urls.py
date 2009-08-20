@@ -1,0 +1,21 @@
+from django.conf.urls.defaults import *
+
+urlpatterns = patterns('hateonyourjob.twits.views',
+    url(r'^$', 'index', name='twit-home'),
+    url(r'category/(?P<slug>[-\w]+)/$', 'category', name='twit-category'),
+    url(r'company_id/(?P<id>[-\w]+)/$', 'company_id', name='twit-company'),
+    url(r'company/(?P<slug>[-\w]+)/$', 'company', name='twit-company'),
+    url(r'company/(?P<slug>[-\w]+)/(?P<sort>[-\w]+)/$', 'company', name='twit-company'),
+    url(r'company-list/$', 'company_list', name='twit-comp-list'),
+    url(r'hate/(?P<id>[-\w]+)/$', 'hate_id', name='twit-hate'),
+    url(r'hate_on/$', 'hate_on', name="hate_on"),
+    url(r'hate_on/(?P<slug>[-\w]+)/$', 'hate_on', name="hate_on"),
+    url(r'add_comp/$', 'new_company', name="new_company"),
+    url(r'about/$', 'about', name="twit-about"),
+    url(r'total_votes/(?P<id>[-\w]+)/$', 'total_votes', name="twit-total_votes"),
+    url(r'vote_up/(?P<id>[-\w]+)/$', 'vote_up', name="twit-vup"),
+    url(r'vote_down/(?P<id>[-\w]+)/$', 'vote_down', name="twit-vdown"),
+    url(r'^greatest/$', 'greatest_hates', name="twit-greatest"),
+    url(r'^captcha/', include('captcha.urls')),
+    url(r'^search/$', 'search', name="twit-search"),
+) 

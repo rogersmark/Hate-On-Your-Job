@@ -1,0 +1,64 @@
+{% extends "twits/base.html" %}
+ {% block companies %}
+   <ul>
+     {% for comp in companies %}
+       <li><a href="{{ comp.get_absolute_url }}">{{ comp }} </a></li>
+       {% if forloop.last %}
+       <li><a href="/company-list">All Companies</a>
+       {% endif %}
+     {% endfor %}
+   </ul>
+ {% endblock companies %}
+ 
+ {% block categories %}
+  <ul>
+  {% for cat in categories %}
+   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
+  {% endfor %}
+  </ul>
+ {% endblock %}
+ 
+{% block content %}
+<h1> Unleash the Hate! </h1>
+{% if form.errors %}
+ <p style="color: red"> Sorry, you have errors: {{ form.errors|pluralize }}</p>
+{% endif %}
+<SCRIPT LANGUAGE="JavaScript">
+function textCounter(field,cntfield,maxlimit) {
+if (field.value.length > maxlimit) // if too long...trim it!
+field.value = field.value.substring(0, maxlimit);
+// otherwise, update 'characters left' counter
+else
+cntfield.value = maxlimit - field.value.length;
+}
+
+function lineTrimmer(field) {
+field.value = field.value.replace("\n", " ");
+}
+//  End -->
+</script>
+
+<form name="hate_on" action="" method="post">
+ <table>
+  <tr><th>{{ form.hate_company.errors}}<label for="id_hate_company">Hate company:</label></th><td>{{ form.hate_company }}
+  </td></tr>
+  <tr><th>{{ form.hate_title.errors}}<label for="id_hate_title">Hate title:</label></th><td>{{ form.hate_title }}</td></tr>
+  <tr><th>{{ form.hate_entry.errors}}<label for="id_hate_entry">Hate entry:</label></th>
+  <td><textarea id="id_hate_entry" rows="3" cols="70" name="hate_entry" wrap="hard" 
+   onKeyDown="textCounter(document.hate_on.id_hate_entry,document.hate_on.remLen1,200)"
+   onKeyUp="textCounter(document.hate_on.id_hate_entry,document.hate_on.remLen1,200)"></textarea>
+  <br>
+  <input readonly type="text" name="remLen1" size="3" maxlength="3" value="200">
+  characters left
+  <br></td>
+  <tr><th>{% for field in form %}
+  {% if forloop.last %}
+  {{ field.errors }}
+  {{ field.label_tag }}: {{ field }}
+  {% endif %}
+  {% endfor %}
+  </td></tr>
+  </table>
+ <input onClick="lineTrimmer(hate_on.id_hate_entry)" type="submit" value="Commit the Deed">
+</form>
+{% endblock %}

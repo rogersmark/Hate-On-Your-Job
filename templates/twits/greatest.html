@@ -1,0 +1,61 @@
+{% extends "twits/base.html" %}
+  
+  {% block companies %}
+    <ul>
+      {% for comp in companies %}
+        <li><a href="{{ comp.get_absolute_url }}">{{ comp }} </a></li>
+       {% if forloop.last %}
+       <li><a href="/company-list">All Companies</a>
+       {% endif %}
+      {% endfor %}
+    </ul>
+  {% endblock companies %}
+  
+  
+  {% block categories %}
+   <ul>
+   {% for cat in categories %}
+    <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
+   {% endfor %}
+   </ul>
+  {% endblock %}
+  
+{% block content %}
+{% for twit in twits.object_list %}
+<div class="post">
+  <h3><a name="{{ twit.id }}" href="/company/{{ twit.hate_company.company_slug }}">{{ twit.hate_company }}</a></h3>
+  <h4><a href="{{ twit.get_absolute_url }}">{{ twit.hate_title }}</a></h4>
+  
+  <span class="created">Created on: {{ twit.created_date|date:"m/d/y @ h:iA T" }}</span>
+  
+  <div class="entry">{{ twit.hate_entry }}</div>
+  <div class="votes">
+    <span class="label">Number of Votes:</span>
+    <span id="item{{ twit.id }}">{{ twit.hate_vote }}</span>
+  </div>
+  
+  <ul class="menu">
+    <li><a href="#" onclick="VoteUp('{{ twit.id }}')">Vote Up</a></li>
+    <li><a href="#" onclick="VoteDown('{{ twit.id }}')">Vote Down</a></li>
+    <li><a href="/hate_on/{{ twit.hate_company.company_slug }}/">Hate On This Company!</a></li>
+  </ul>
+  <p>
+  <a href="http://reddit.com/submit?url=http://www.hateonyourjob.com{{ twit.get_absolute_url }}&title={{ twit.hate_title }}"><img src="/media/images/reddit.gif" alt="Reddit"></a>
+  <a href="http://digg.com/submit?phase=2&url=http://www.hateonyourjob.com{{ twit.get_absolute_url }}"><img src="/media/images/digg.gif" alt="Digg it!"></a>
+  <a href="http://www.stumbleupon.com/submit?url=http://www.hateonyourjob.com{{ twit.get_absolute_url }}&title={{ twit.hate_title }}"><img src="/media/images/stumble-upon.jpg" alt="StumbleUpon"></a>
+  <a href="http://del.icio.us/post?url=http://www.hateonyourjob.com{{ twit.get_absolute_url }}&title={{ twit.hate_title }}"><img src="/media/images/delicious.gif" alt="Delicious!"></a>
+  </p>
+
+</div>
+{% endfor %}
+      <div class="pagination">
+        <span class="step-links">
+        {% if twits.has_previous %}<a href="?page={{ twits.previous_page_number }}" class="util-link">previous</a>{% endif %}
+        {% if twits.has_next %}<a href="?page={{ twits.next_page_number }}" class="util-link">next</a>{% endif %}
+        </span>
+        <span class="current">
+             <h3>Page {{ twits.number }} of {{ twits.paginator.num_pages }}</h3>
+        </span>
+    </div>
+
+{% endblock content %}

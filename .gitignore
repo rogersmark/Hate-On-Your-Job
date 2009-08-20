@@ -1,0 +1,4 @@
+localsettings.py
+cache
+*.db
+*.pyc

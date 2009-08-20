@@ -1,0 +1,24 @@
+{% extends "twits/base.html" %}
+ {% block companies %}
+  {% for comp in companies %}
+   <p> <a href="{{ comp.get_absolute_url }}">{{ comp }} </a></p>
+  {% endfor %}
+ {% endblock companies %}
+ {% block categories %}
+  {% for cat in categories %}
+   <p><a href="{{ cat.get_absolute_url }}"> {{ cat }} </a></p>
+  {% endfor %}
+ {% endblock categories %}
+{% block content %}
+<h1> Unleash the Hate! </h1>
+{% if form.errors %}
+ <p style="color: red"> Sorry, you have errors: {{ form.errors|pluralize }}</p>
+{% endif %}
+
+<form action="" method="post">
+ <table>
+  {{ form.as_table }}
+ </table>
+ <input type="submit" value="Commit the Deed">
+</form>
+{% endblock %}

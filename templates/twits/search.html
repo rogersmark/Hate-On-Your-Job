@@ -1,0 +1,37 @@
+{% extends "twits/base.html" %}
+ {% block companies %}
+   <ul>
+     {% for comp in companies %}
+       <li><a href="{{ comp.get_absolute_url }}">{{ comp }} </a></li>
+       {% if forloop.last %}
+       <li><a href="/company-list">All Companies</a>
+       {% endif %}
+     {% endfor %}
+   </ul>
+ {% endblock companies %}
+ 
+ {% block categories %}
+  <ul>
+  {% for cat in categories %}
+   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
+  {% endfor %}
+  </ul>
+ {% endblock %}
+ 
+ {% block content %}
+  {% for x in comp.object_list %}
+  <p><a href="{{ x.get_absolute_url }}">{{ x }}</a></p>
+  <p>{{ x.company_description }}</p>
+  <hr>
+  {% endfor %}
+      <div class="pagination">
+        <span class="step-links">
+        {% if comp.has_previous %}<a href="?page={{ comp.previous_page_number }}" class="util-link">previous</a>{% endif %}
+        {% if comp.has_next %}<a href="?page={{ comp.next_page_number }}" class="util-link">next</a>{% endif %}
+        </span>
+        <span class="current">
+             <h3>Page {{ comp.number }} of {{ comp.paginator.num_pages }}</h3>
+        </span>
+    </div>
+ 
+ {% endblock content %}

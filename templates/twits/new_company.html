@@ -1,0 +1,43 @@
+{% extends "twits/base.html" %}
+ {% block companies %}
+   <ul>
+     {% for comp in companies %}
+       <li><a href="{{ comp.get_absolute_url }}">{{ comp }} </a></li>
+       {% if forloop.last %}
+       <li><a href="/company-list">All Companies</a>
+       {% endif %}
+     {% endfor %}
+   </ul>
+ {% endblock companies %}
+ 
+ {% block categories %}
+  <ul>
+  {% for cat in categories %}
+   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
+  {% endfor %}
+  </ul>
+ {% endblock %}
+ 
+{% block content %}
+<h1> Add a Company to the Hate List </h1>
+{% if form.errors %}
+ <p style="color: red"> Sorry you have errors: {{ form.errors|pluralize }}</p>
+{% endif %}
+
+<form action="" method="post">
+ <table>
+  <p>Note: You add the company, and THEN hate on your company that you added. This section here is *just* for adding new companies to hate on. After you add them, go <a href="http://www.hateonyourjob.com/hate_on/">Get Your Hate On!</a></p>
+  <tr><th><label for="id_company_name">Company name:</label></th><td><input id="id_company_name" type="text" name="company_name" maxlength="150" /></td></tr>
+  <tr><th><label for="id_company_category">Company category:</label></th><td>{{ form.company_category }}</td></tr>
+  <tr><th><label for="id_company_description">Company description (200 Char Max):</label></th><td>{{ form.company_description }}</td></tr>
+  <tr><th>{% for field in form %}
+  {% if forloop.last %}
+  {{ field.errors }}
+  {{ field.label_tag }}: {{ field }}
+  {% endif %}
+  {% endfor %}
+  </td></tr>
+ </table>
+ <input type="submit" value="Commit the Deed">
+</form>
+{% endblock content %}

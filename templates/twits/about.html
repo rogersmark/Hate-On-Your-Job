@@ -1,0 +1,21 @@
+{% extends "twits/base.html" %}
+ {% block companies %}
+  {% for comp in companies %}
+   <a href="{{ comp.get_absolute_url }}"> {{ comp }} </a>
+  {% endfor %}
+ {% endblock %}
+ {% block categories %}
+  <ul>
+  {% for cat in categories %}
+   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
+  {% endfor %}
+  </ul>
+ {% endblock %}
+{% block content %}
+<div id="content">
+  <h2> About Hate on your Job</h2>
+  <p>This site was born one fine day when I was at work, and getting just a bit frustrated. I tend to turn towards our old friend, <a href="http://www.twitter.com">Twitter</a> to unleash random rants and raves. However, thanks to the joy that is Twitter, I have myself some form of web presence. That means, people actually vaguely know who I am, what I do, where I work, and so on. As such, my boss follows me on Twitter as well, which is perfectly acceptable. I get along great with my boss, and all is well in that respect. That doesn't mean that I don't occasionally want to just blow off steam though about something stupid at work.</p>
+  <p>That's where this site comes in handy. Something at work pissing you off? Tweet it here, where you'll remain anonymous. I'm not condoning you to hate on your company really, as much as giving you a place to vent to the world, without getting yourself fired in the process. We've all read the stories about the tweeter that got fired for the tweet content right? Don't be that person, be a bit smarter and lay your frustrations out in anonminity. Better yet, don't even complain about your company, rip into faceless/nameless customers that made your day hell. For goodness's sake though, be careful. I've limited the amount of text you can put into these rage filled bursts for your protection. The last thing I need is some idiot blaming me for getting fired. Hence, the character limit should limit you from spilling out a whole story, and thus fully incriminating yourself. Alright?</p>
+  <p>Lastly, remember this is mainly tongue and cheek. Have fun, don't be an idiot. Don't slander a company for no apparent reason, because that's just stupid. Make sense, make a good argument, and try to have some respect. Your words do have repercussions, and people will feel that. Remember the pen is mightier than the sword? In that vein remember that the pen requires more responsibility than the sword as well. Be good, have fun, and enjoy. </p>
+</div>
+{% endblock content %}
