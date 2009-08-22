@@ -1,3 +1,4 @@
+from hateonyourjob.twits import models
 from django.conf import settings
 from django.db.models.signals import post_save
 
@@ -34,3 +35,4 @@ def hate_tweet(sender, instance, created, **kwargs):
         except:
             pass
 
+post_save.connect(hate_tweet, sender=models.Hate)
