@@ -1,14 +1,10 @@
-import random
+import random, datetime
 import re,urllib
 import twitter
 import secretballot
-from django.db.models.signals import post_save
 from captcha.fields import CaptchaField
-import datetime
 from django.template import defaultfilters
 from django.db.models import permalink
-from django.forms import ModelForm
-from django import forms
 from django.db import models
 
 class Category(models.Model):
@@ -69,8 +65,6 @@ class Hate(models.Model):
         if not self.id:
             if self.hate_vote is None:
                 self.hate_vote = 0
-            #api = twitter.Api(username="hateonyourjob", password="bl00drun3")
-            #api.PostUpdate("%s just received some hate-o-rade! %s" % (self.hate_company, self.get_absolute_url()))
         super(Hate, self).save()
 
 
@@ -78,53 +72,4 @@ class Hate(models.Model):
     def get_absolute_url(self):
         return ("twit-hate", (), {'id':self.id})
 
-class CompanyForm(ModelForm):
-    captcha = CaptchaField()
-    company_description = forms.CharField(max_length=200, help_text="200 Character Max. This field for Company Desc, not for hating. Please enter 'Get Your Hate On' for hating!", widget=forms.Textarea)
-    class Meta:
-        model = Company
-        fields = ('company_name', 'company_category', 'company_description')
-
-class HateForm(ModelForm):
-    captcha = CaptchaField()
-    hate_entry = forms.CharField(max_length=200, help_text="200 Character Max", widget=forms.Textarea)
-    class Meta:
-        model = Hate 
-        fields = ('hate_company', 'hate_title', 'hate_entry')
-
 secretballot.enable_voting_on(Hate)
-
-def tiny_url(url):
-    apiurl = "http://tinyurl.com/api-create.php?url="
-    tinyurl = urllib.urlopen(apiurl + url).read()
-    return tinyurl
-
-def content_tiny_url(content):
-    
-    regex_url = r'http:\/\/([\w.]+\/?)\S*'
-    for match in re.finditer(regex_url, content):
-        url = match.group(0)
-        content = content.replace(url,tiny_url(url))
-    
-    return content
-
-def hate_tweet(sender, instance, created, **kwargs):
-    if created:
-        try:
-            random_num = random.randrange(0,3)
-            if random_num == 0:
-                twit_string = "just received some hate-o-rade!"
-
-            elif random_num == 1:
-                twit_string = "has some unhappy employees!"
-
-            else:
-                twit_string = "apparently needs to throw a company picnic!"
-
-            url = content_tiny_url("http://www.hateonyourjob.com/%s" % instance.get_absolute_url())
-            api = twitter.Api(username="hateonyourjob", password="bl00drun3")
-            api.PostUpdate("%s %s %s" % (instance.hate_company, twit_string, url))
-        except:
-            pass
-
-post_save.connect(hate_tweet, sender=Hate)

@@ -1,16 +1,4 @@
-{% extends "twits/base.html" %}
- {% block companies %}
-  {% for comp in companies %}
-   <a href="{{ comp.get_absolute_url }}"> {{ comp }} </a>
-  {% endfor %}
- {% endblock %}
- {% block categories %}
-  <ul>
-  {% for cat in categories %}
-   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
-  {% endfor %}
-  </ul>
- {% endblock %}
+{% extends "base.html" %}
 {% block content %}
 <div id="content">
   <h2> About Hate on your Job</h2>

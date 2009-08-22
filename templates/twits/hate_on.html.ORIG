@@ -1,4 +1,4 @@
-{% extends "twits/base.html" %}
+{% extends "base.html" %}
  {% block companies %}
   {% for comp in companies %}
    <p> <a href="{{ comp.get_absolute_url }}">{{ comp }} </a></p>

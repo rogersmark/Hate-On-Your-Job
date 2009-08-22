@@ -1,0 +1,20 @@
+<div class="block">
+  <h3 class="title">Latest Companies</h3>
+     {% for comp in companies %}
+       <li><a href="{{ comp.get_absolute_url }}">{{ comp }} </a></li>
+       {% if forloop.last %}
+       <li><a href="/company-list">All Companies</a>
+       {% endif %}
+     {% endfor %}
+   </ul>
+</div>
+
+<div class="block">
+  <h3 class="title">Employment Categories</h3>
+  <ul>
+  {% for cat in categories %}
+   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
+  {% endfor %}
+  </ul>
+</div>
+ 

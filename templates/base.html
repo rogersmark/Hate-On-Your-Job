@@ -1,6 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    {% load disqus_tags %}
+    {% disqus_dev %}
     <meta content="text/html;charset=ISO-8859-1" http-equiv="Content-Type">
     <title>Hate On Your Job!</title>
   
@@ -55,18 +57,8 @@
           <p>Follow <a href="http://www.twitter.com/hateonyourjob">@hateonyourjob</a> for updates!</p>
         </div>
         
-        <div class="block">
-          <h3 class="title">Latest Companies</h3>
-          {% block companies %}
-          {% endblock %}
-        </div>
-        
-        <div class="block">
-          <h3 class="title">Employment Categories</h3>
-          {% block categories %}
-          {% endblock %}
-        </div>
-        
+       {% load sidebar %}
+       {% sidebar %} 
       </div>
       
       <div id="main" class="span-18 last">

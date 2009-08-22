@@ -1,4 +1,23 @@
 # Django settings for hateonyourjob project.
+import os, sys
+############################################
+# App Specific Settings                    #
+############################################
+TWITTER_NAME = ""
+TWITTER_PASS = ""
+
+# Root system path
+PROJECT_DIR = os.path.dirname(__file__)
+
+# URL
+ROOT_URL = ""
+
+# DISQUS SETTINGS
+DISQUS_API_KEY = ""
+DISQUS_WEBSITE_SHORTNAME = ""
+############################################
+# Django Settings                          #
+############################################
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -9,10 +28,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'dbhate'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'dbhate'             # Not used with sqlite3.
-DATABASE_PASSWORD = '8t0o5c2p'         # Not used with sqlite3.
+DATABASE_ENGINE = ''           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_NAME = ''             # Or path to database file if using sqlite3.
+DATABASE_USER = ''             # Not used with sqlite3.
+DATABASE_PASSWORD = ''         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 
@@ -35,12 +54,12 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = os.path.join(PROJECT_DIR, "media")
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = ROOT_URL + "media/"
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -70,7 +89,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    '/var/www/domains/hateonyourjob.com/www/hateonyourjob/hateonyourjob/templates/',
+    os.path.join(PROJECT_DIR, "templates"),
 )
 
 INSTALLED_APPS = (
@@ -79,11 +98,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.admin',
-    'hateonyourjob.twits',
-    'captcha',
+    'disqus',
     'secretballot',
+    'twits',
+    'captcha',
 )
 
 # Captcha configs
 CAPTCHA_FONT_PATH = '/usr/share/fonts/bitstream-vera/Vera.ttf'
 
+try:
+    from localsettings import *
+except ImportError:
+    print 'localsetting could not be imported'
+    pass #Or raise

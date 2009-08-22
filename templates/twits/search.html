@@ -1,23 +1,4 @@
-{% extends "twits/base.html" %}
- {% block companies %}
-   <ul>
-     {% for comp in companies %}
-       <li><a href="{{ comp.get_absolute_url }}">{{ comp }} </a></li>
-       {% if forloop.last %}
-       <li><a href="/company-list">All Companies</a>
-       {% endif %}
-     {% endfor %}
-   </ul>
- {% endblock companies %}
- 
- {% block categories %}
-  <ul>
-  {% for cat in categories %}
-   <li><a href="{{ cat.get_absolute_url}}"> {{ cat }} </a></li>
-  {% endfor %}
-  </ul>
- {% endblock %}
- 
+{% extends "base.html" %}
  {% block content %}
   {% for x in comp.object_list %}
   <p><a href="{{ x.get_absolute_url }}">{{ x }}</a></p>
