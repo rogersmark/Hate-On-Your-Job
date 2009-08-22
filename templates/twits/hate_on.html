@@ -22,6 +22,7 @@ field.value = field.value.replace("\n", " ");
 <form name="hate_on" action="" method="post">
  <table>
   <tr><th>{{ form.hate_company.errors}}<label for="id_hate_company">Hate company:</label></th><td>{{ form.hate_company }}
+  Your Company Not Listed? <a href="/add_comp/">Add it!</a>
   </td></tr>
   <tr><th>{{ form.hate_title.errors}}<label for="id_hate_title">Hate title:</label></th><td>{{ form.hate_title }}</td></tr>
   <tr><th>{{ form.hate_entry.errors}}<label for="id_hate_entry">Hate entry:</label></th>
