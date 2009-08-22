@@ -100,7 +100,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'disqus',
     'secretballot',
-    'twits',
+    'hateonyourjob.twits',
     'captcha',
 )
 

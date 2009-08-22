@@ -1,6 +1,6 @@
 from django import forms
 
-from twits import models
+from hateonyourjob.twits import models
 from captcha.fields import CaptchaField
 
 class CompanyForm(forms.ModelForm):

@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.db.models import Q
 from django.core.paginator import Paginator
 from secretballot.middleware import SecretBallotIpUseragentMiddleware
-from twits import models, forms
+from hateonyourjob.twits import models, forms
 
 def index(request):
     twit_list = Paginator(models.Hate.objects.all(), 25)

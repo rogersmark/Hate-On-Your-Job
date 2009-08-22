@@ -1,3 +1,5 @@
+production_settings.py
+fabfile.py
 data_backups/
 localsettings.py
 cache

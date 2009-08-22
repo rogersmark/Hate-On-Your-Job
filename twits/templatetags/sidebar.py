@@ -1,4 +1,4 @@
-from twits import models
+from hateonyourjob.twits import models
 from django import template
 
 register = template.Library()
