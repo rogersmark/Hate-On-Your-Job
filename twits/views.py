@@ -1,3 +1,5 @@
+import datetime
+from django.template import defaultfilters
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
 from django.db.models import Q
@@ -66,12 +68,20 @@ def new_company(request):
     if request.method == 'POST':
         form = forms.CompanyForm(request.POST)
         if form.is_valid():
+            data = form.cleaned_data
             human = True
             form.save()
-            slug = defaultfilters.slugify(form.cleaned_data['company_name'])
-            return HttpResponseRedirect('/hate_on/%s' % slug)
+            slug = defaultfilters.slugify(data['company_name'])
+            hate_obj = models.Hate()
+            hate_obj.hate_company=models.Company.objects.get(company_slug=slug)
+            hate_obj.hate_title=data['hate_title']
+            hate_obj.hate_entry=data['hate_entry']
+            hate_obj.hate_vote=1
+            hate_obj.created_date=datetime.datetime.now()
+            hate_obj.save()
+            return HttpResponseRedirect('/')
     else:
-        form = forms.CompanyForm(initial={'company_description': "Please place a short description of the company here. You'll then be sent to the hate form!"})
+        form = forms.CompanyForm(initial={'company_description': "Please place a short description of the company here."})
     return render_to_response("twits/new_company.html", {'form': form})
 
 def about(request):
@@ -84,8 +94,6 @@ def vote_up(request, id):
     vote = models.Hate.objects.get(id=id)
     vote.hate_vote = vote.vote_total
     vote.save()
-    #twit.hate_vote += 1
-    #twit.save()
     return HttpResponseRedirect('/total_votes/%s' % twit.id)
 
 def vote_down(request, id):
@@ -95,8 +103,6 @@ def vote_down(request, id):
     vote = models.Hate.objects.get(id=id)
     vote.hate_vote = vote.vote_total
     vote.save()
-    #twit.hate_vote += -1
-    #twit.save()
     return HttpResponseRedirect('/total_votes/%s' % twit.id)
 
 def total_votes(request, id):

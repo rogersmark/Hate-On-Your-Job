@@ -105,7 +105,7 @@ INSTALLED_APPS = (
 )
 
 # Captcha configs
-CAPTCHA_FONT_PATH = '/usr/share/fonts/bitstream-vera/Vera.ttf'
+CAPTCHA_FONT_PATH = '/usr/share/fonts/truetype/ttf-bitstream-vera/Vera.ttf'
 
 try:
     from localsettings import *

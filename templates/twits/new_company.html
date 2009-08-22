@@ -2,15 +2,44 @@
 {% block content %}
 <h1> Add a Company to the Hate List </h1>
 {% if form.errors %}
- <p style="color: red"> Sorry you have errors: {{ form.errors|pluralize }}</p>
+ <p style="color: red"> Sorry you have errors: {{ form.errors }}</p>
 {% endif %}
 
-<form action="" method="post">
+<SCRIPT LANGUAGE="JavaScript">
+function textCounter(field,cntfield,maxlimit) {
+if (field.value.length > maxlimit) // if too long...trim it!
+field.value = field.value.substring(0, maxlimit);
+// otherwise, update 'characters left' counter
+else
+cntfield.value = maxlimit - field.value.length;
+}
+
+function lineTrimmer(field) {
+field.value = field.value.replace("\n", " ");
+}
+//  End -->
+</script>
+
+<form name="add_comp" action="" method="post">
  <table>
   <p>Note: You add the company, and THEN hate on your company that you added. This section here is *just* for adding new companies to hate on. After you add them, go <a href="http://www.hateonyourjob.com/hate_on/">Get Your Hate On!</a></p>
   <tr><th><label for="id_company_name">Company name:</label></th><td><input id="id_company_name" type="text" name="company_name" maxlength="150" /></td></tr>
   <tr><th><label for="id_company_category">Company category:</label></th><td>{{ form.company_category }}</td></tr>
-  <tr><th><label for="id_company_description">Company description (200 Char Max):</label></th><td>{{ form.company_description }}</td></tr>
+  <tr><th><label for="id_company_description">Company description (200 Char Max):</label></th><td><textarea id="id_company_description" rows="3" cols="70" name="company_description" wrap="hard"
+   onKeyDown="textCounter(document.add_comp.id_company_description,document.add_comp.compLen1,200)"
+   onKeyUp="textCounter(document.add_comp.id_company_description,document.add_comp.compLen1,200)"></textarea>  <br>
+  <input readonly type="text" name="compLen1" size="3" maxlength="3" value="200">
+  characters left
+  <br>
+  </td></tr>
+  <tr><th><label for="id_hate_title">Hate Title:</label></th><td>{{ form.hate_title }}</td></tr>
+  <tr><th><label for="id_hate_entry">Hate Entry:</label></th><td><textarea id="id_hate_entry" rows="3" cols="70" name="hate_entry" wrap="hard"
+   onKeyDown="textCounter(document.add_comp.id_hate_entry,document.add_comp.remLen1,200)"
+   onKeyUp="textCounter(document.add_comp.id_hate_entry,document.add_comp.remLen1,200)"></textarea>  <br>
+  <input readonly type="text" name="remLen1" size="3" maxlength="3" value="200">
+  characters left
+  <br>
+  </td></tr>
   <tr><th>{% for field in form %}
   {% if forloop.last %}
   {{ field.errors }}
