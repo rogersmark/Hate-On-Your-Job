@@ -106,6 +106,8 @@ INSTALLED_APPS = (
 
 # Captcha configs
 CAPTCHA_FONT_PATH = '/usr/share/fonts/truetype/ttf-bitstream-vera/Vera.ttf'
+CAPTCHA_NOISE_FUNCTIONS = ("captcha.helpers.noise_dots",)
+CAPTCHA_LENGTH = 6
 
 try:
     from localsettings import *

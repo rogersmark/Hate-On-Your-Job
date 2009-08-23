@@ -1,6 +1,11 @@
+import re,urllib
+import random, logging, twitter
 from hateonyourjob.twits import models
 from django.conf import settings
 from django.db.models.signals import post_save
+
+LOG_FILENAME = '/tmp/hoyj.out'
+logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG,)
 
 def tiny_url(url):
     apiurl = "http://tinyurl.com/api-create.php?url="
@@ -30,7 +35,7 @@ def hate_tweet(sender, instance, created, **kwargs):
                 twit_string = "apparently needs to throw a company picnic!"
 
             url = content_tiny_url("http://www.hateonyourjob.com/%s" % instance.get_absolute_url())
-            api = twitter.Api(username=settings.TWITTER_USER, password=settings.TWITTER_PASS)
+            api = twitter.Api(username=settings.TWITTER_NAME, password=settings.TWITTER_PASS)
             api.PostUpdate("%s %s %s" % (instance.hate_company, twit_string, url))
         except:
             pass
