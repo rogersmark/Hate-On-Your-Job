@@ -18,4 +18,5 @@ urlpatterns = patterns('hateonyourjob.twits.views',
     url(r'^greatest/$', 'greatest_hates', name="twit-greatest"),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^search/$', 'search', name="twit-search"),
+    url(r'^status/cache/$', 'cache_view', name="caching"),
 ) 

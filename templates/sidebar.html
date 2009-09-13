@@ -1,3 +1,5 @@
+{% load cache %}
+{% cache 1800 hoyj_sidebar %}
 <div class="block">
   <h3 class="title">Latest Companies</h3>
      {% for comp in companies %}
@@ -17,4 +19,4 @@
   {% endfor %}
   </ul>
 </div>
- 
+ {% endcache %}

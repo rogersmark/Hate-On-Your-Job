@@ -1,4 +1,8 @@
-import datetime
+import datetime, re
+from django.conf import settings
+from django import http
+from django.views.decorators.cache import cache_page
+from django.views.decorators.cache import cache_page
 from django.template import defaultfilters
 from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response, get_object_or_404
@@ -7,6 +11,7 @@ from django.core.paginator import Paginator
 from secretballot.middleware import SecretBallotIpUseragentMiddleware
 from hateonyourjob.twits import models, forms
 
+@cache_page(300)
 def index(request):
     twit_list = Paginator(models.Hate.objects.all(), 25)
     page = int(request.GET.get('page', '1'))
@@ -146,3 +151,61 @@ def company_list(request):
     page = int(request.GET.get('page', '1'))
     comp = comp_list.page(page)
     return render_to_response("twits/company_list.html", {'comp': comp})
+
+def cache_view(request):
+    """                 
+    Tries to import memcache, fails out if it can't and raises a 404. Also
+    raises a 404 in the case of unauthenticated users, or memcache not
+    being used. Graciously borrowed from:
+    http://effbot.org/zone/django-memcached-view.htm
+    """
+    try:
+        import memcache
+    except ImportError:
+        raise http.Http404
+
+    if not (request.user.is_authenticated() and
+            request.user.is_staff):
+        raise http.Http404
+
+    # get first memcached URI
+    m = re.match(
+        "memcached://([.\w]+:\d+)", settings.CACHE_BACKEND
+    )
+    if not m:
+        raise http.Http404
+
+    host = memcache._Host(m.group(1))
+    host.connect()
+    host.send_cmd("stats")
+
+    class Stats:
+        pass
+
+    stats = Stats()
+
+    while 1:
+        line = host.readline().split(None, 2)
+        if line[0] == "END":
+            break
+        stat, key, value = line
+        try:
+            # convert to native type, if possible
+            value = int(value)
+            if key == "uptime":
+                value = datetime.timedelta(seconds=value)
+            elif key == "time":
+                value = datetime.datetime.fromtimestamp(value)
+        except ValueError:
+            pass
+        setattr(stats, key, value)
+
+    host.close_socket()
+
+    return render_to_response(
+        'memcached_status.html', dict(
+            stats=stats,
+            hit_rate=100 * stats.get_hits / stats.cmd_get,
+            time=datetime.datetime.now(), # server time
+        ))
+
